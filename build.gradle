@@ -1,9 +1,28 @@
 plugins {
     id 'java'
+    id("maven-publish")
 }
 
 group = 'cloud.ububox'
 version = '1.0-SNAPSHOT'
+
+publishing {
+    repositories {
+        maven {
+            name = "GitHubPackages"
+            url = uri("https://maven.pkg.github.com/APT-Ubub0x/IMPERIO.Core-API")
+            credentials {
+                username = project.findProperty("gpr.user")
+                password = project.findProperty("gpr.key")
+            }
+        }
+    }
+    publications {
+        maven(MavenPublication) {
+            from components.java
+        }
+    }
+}
 
 repositories {
     mavenCentral()
